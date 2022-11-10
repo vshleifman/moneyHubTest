@@ -75,3 +75,16 @@ Financial Companies - localhost:8082
 
 Admin - localhost:8083
 - `/investments/:id` get an investment record by id
+
+
+## Changes
+New route - "/report" - a GET endpoint which calls the POST "/investments/export", providing it with the csv formatted data that comes from investments and financial-companies services. If "/report/latest" is called, the csv sent to investments will only contain the latest data for each user.
+
+### Security
+As stated, I am assuming there is sufficient security in place, which at minimum should include verefication of the requester and their access to the permissions of an admin role. Additionally, limits could be put in place to prevent overloading the service with too many successive requests.
+
+### Scalability
+I am usigng a nested loop in the code, which gives this endpoint O(n^2) complexity. This could be replaced with a linear solution with some tinkering.
+
+### Time
+I've spent too much time figuring out why certain parts of the code were not woring properly (which I believe would have been trivial with TypeSritpt), and didn't have enough time to write tests. The above mentioned nested loop would ideally be changed as well.
